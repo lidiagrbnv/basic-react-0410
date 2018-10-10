@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate
+} from 'react-day-picker/moment'
+import 'moment/locale/en-gb'
 import Select from 'react-select'
 import ArticleList from './article-list'
 import ArticleChart from './articles-chart'
@@ -19,6 +26,16 @@ class App extends Component {
           value={this.state.selected}
           onChange={this.handleSelectionChange}
           isMulti
+        />
+        <DayPickerInput
+          formatDate={formatDate}
+          parseDate={parseDate}
+          format="LL"
+          placeholder={`${formatDate(new Date(), 'LL', 'en-gb')}`}
+          dayPickerProps={{
+            locale: 'en-gb',
+            localeUtils: MomentLocaleUtils
+          }}
         />
         <ArticleList articles={articles} ref={this.setArticleListRef} />
         <ArticleChart articles={articles} />
